@@ -21,39 +21,147 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
         app:maxImageSize="24dp"
         app:srcCompat="@android:drawable/ic_dialog_dialer" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_run"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
+        android:layout_gravity="bottom"
         android:layout_margin="@dimen/fab_margin"
-        android:text="@string/run"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        />
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:maxImageSize="24dp"
+        android:src="@drawable/run"/>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fab_mid"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        android:text="@string/mission"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:layout_anchor="@id/fab_run"
-        android:layout_anchorGravity="end"
-        />
+        android:minHeight="56dp"
+        app:cardBackgroundColor="@android:color/background_light"
+        app:cardCornerRadius="32dp">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/level_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:maxWidth="72dp"
+                android:minWidth="72dp"
+                android:text="@string/level"
+                app:layout_constraintRight_toLeftOf="@id/char_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/exp_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:max="100"
+                android:min="0"
+                android:minWidth="72dp"
+                android:minHeight="16dp"
+                android:progress="80"
+                android:progressTint="@android:color/holo_green_dark"
+                android:scaleY="2"
+                app:layout_constraintRight_toLeftOf="@id/char_image"
+                app:layout_constraintTop_toBottomOf="@id/level_text" />
+
+            <ImageView
+                android:id="@+id/char_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:background="@color/colorPrimary"
+                android:minWidth="40dp"
+                android:minHeight="40dp"
+                android:padding="1dp"
+                android:src="@android:drawable/star_on"
+                android:text="@string/mission"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/hp_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:maxWidth="72dp"
+                android:minWidth="72dp"
+                android:textSize="12sp"
+                android:text="@string/level"
+                app:layout_constraintLeft_toRightOf="@id/char_image"
+                app:layout_constraintBottom_toTopOf="@id/hp_bar" />
+
+            <TextView
+                android:id="@+id/mp_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:maxWidth="72dp"
+                android:minWidth="72dp"
+                android:textSize="12sp"
+                android:text="@string/level"
+                app:layout_constraintLeft_toRightOf="@id/char_image"
+                app:layout_constraintBottom_toTopOf="@id/mp_bar" />
+
+            <ProgressBar
+                android:id="@+id/hp_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:max="100"
+                android:min="0"
+                android:minWidth="72dp"
+                android:progress="80"
+                android:progressTint="@android:color/holo_green_light"
+                android:scaleY="2"
+                app:layout_constraintLeft_toRightOf="@id/char_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/mp_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:max="100"
+                android:min="0"
+                android:minWidth="72dp"
+                android:progress="80"
+                android:progressTint="@android:color/holo_blue_bright"
+                android:scaleY="2"
+                app:layout_constraintLeft_toRightOf="@id/char_image"
+                app:layout_constraintTop_toBottomOf="@id/hp_bar" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
 
     <include layout="@layout/content_main" />
 

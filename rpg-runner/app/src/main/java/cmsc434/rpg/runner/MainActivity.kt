@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -24,6 +23,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
 
+    private var zoomLevel: Float = 20.0f
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -32,9 +32,12 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        fab_menu.setOnClickListener {
+            zoomMap(true)
+        }
+
+        fab_run.setOnClickListener {
+            zoomMap(false)
         }
 
         val mapFragment = supportFragmentManager
@@ -49,6 +52,23 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         mapFragment.getMapAsync(this)
+    }
+
+    private fun zoomMap(zoom: Boolean) {
+        mMap.apply {
+            val umd = LatLng(38.9858, -76.9373)
+            mMap.apply {
+                addMarker(MarkerOptions().position(umd).title("Marker in UMD"))
+                moveCamera(CameraUpdateFactory.newLatLng(umd))
+                if (zoom) {
+                    zoomLevel += 1.0f
+                } else {
+                    zoomLevel -= 1.0f
+                }
+                Toast.makeText(application, "zoom: " + zoomLevel, Toast.LENGTH_LONG).show()
+                moveCamera(CameraUpdateFactory.newLatLngZoom(umd, zoomLevel));
+             }
+        }
     }
 
     private fun requestLocationPermission() {
@@ -91,10 +111,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.apply {
             addMarker(MarkerOptions().position(umd).title("Marker in UMD"))
             moveCamera(CameraUpdateFactory.newLatLng(umd))
-            moveCamera(CameraUpdateFactory.newLatLngZoom(umd, 20.0f));
-            uiSettings.isZoomControlsEnabled = false
-            uiSettings.isScrollGesturesEnabled = false
+            moveCamera(CameraUpdateFactory.newLatLngZoom(umd, zoomLevel));
+            uiSettings.setAllGesturesEnabled(false)
         }
+
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location : Location? ->
                 Toast.makeText(applicationContext, location.toString(), Toast.LENGTH_LONG).show()
