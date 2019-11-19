@@ -2,7 +2,15 @@
     <string name="app_name">RPG Runner</string>
     <string name="action_settings">Settings</string>
     <string name="run">RUN</string>
-    <string name="level">LEVEL 5</string>
-    <string name="mission">MISSION</string>
-    <string name="player_info">Player_Name\nPlayer_Level</string>
+    <string name="player_level">Level: </string>
+    <string name="health">HP</string>
+    <string name="magic">MP</string>
+    <string name="player_name"><u>Player_Name</u></string>
+
+    <!--start screen texts-->
+    <string name="adventure">Adventure</string>
+    <string name="mission">Run Missions</string>
+    <string name="character">Character</string>
+    <string name="option">Options</string>
+    <string name="help">Help</string>
 </resources>
