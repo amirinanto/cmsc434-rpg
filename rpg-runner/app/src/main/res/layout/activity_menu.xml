@@ -3,38 +3,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/menu_gap">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/titleCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TextAppearance.MaterialComponents.Headline3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:padding="@dimen/medium_gap"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@android:color/white" />
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
+            tools:srcCompat="@drawable/run" />
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/adventure_button"
-        android:text="@string/adventure"
         style="@style/style_menu_button"
+        android:text="@string/adventure"
         app:layout_constraintBottom_toTopOf="@id/mission_button"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
+        app:layout_constraintRight_toRightOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/mission_button"
-        android:text="@string/mission"
         style="@style/style_menu_button"
+        android:text="@string/mission"
         app:layout_constraintBottom_toTopOf="@id/character_button"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/character_button"
@@ -48,6 +75,7 @@
         android:id="@+id/split_menu_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/big_gap"
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,17 +83,17 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            android:text="@string/option"
             style="@style/style_menu_button"
-            android:layout_marginRight="@dimen/menu_gap"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="0dp"
             android:layout_weight="1"
-            android:layout_width="wrap_content"/>
+            android:text="@string/option" />
 
         <com.google.android.material.button.MaterialButton
-            android:text="@string/help"
             style="@style/style_menu_button"
+            android:layout_width="wrap_content"
             android:layout_weight="1"
-            android:layout_width="wrap_content"/>
+            android:text="@string/help" />
 
 
     </LinearLayout>

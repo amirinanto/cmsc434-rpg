@@ -27,16 +27,16 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.NoActionBar)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
 
         fab_menu.setOnClickListener {
 
         }
 
-        fab_run.setOnClickListener {
-
+        fab_back.setOnClickListener {
+            finish()
         }
 
         (supportFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment)
@@ -89,8 +89,8 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
         map = googleMap
 
         // Add a marker in Sydney and move the camera
-        val umd = LatLng(38.9858, -76.9373)
         map.apply {
+            isMyLocationEnabled = true
             setMapStyle(MapStyleOptions.loadRawResourceStyle(applicationContext,  R.raw.night_map))
             uiSettings.setAllGesturesEnabled(false)
         }
@@ -117,10 +117,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
 
             val curLatLng = LatLng(location.latitude, location.longitude)
 
-            map.apply{
-                addMarker(MarkerOptions().position(curLatLng))
-                animateCamera(CameraUpdateFactory.newLatLngZoom(curLatLng, zoomLevel))
-            }
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(curLatLng, zoomLevel))
         } else {
             Log.i(TAG, "NULL LOCATION")
         }
