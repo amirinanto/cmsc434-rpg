@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.info_card.*
 
 class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
 

@@ -14,8 +14,10 @@
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
-        app:tint="@android:color/white"
-        app:srcCompat="@drawable/menu_icon" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/menu_icon"
+        app:tint="@android:color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_back"
@@ -28,29 +30,39 @@
         android:src="?attr/homeAsUpIndicator"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
-        app:tint="@android:color/white"
-        app:maxImageSize="24dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="24dp"
+        app:tint="@android:color/white" />
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="240dp"
+        android:id="@+id/info_card"
+        android:layout_width="220dp"
         android:layout_height="64dp"
         android:layout_gravity="bottom|center"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="12dp"
         android:minHeight="56dp"
         app:cardBackgroundColor="@android:color/background_light"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:padding="4dp">
+            android:paddingStart="@dimen/medium_gap"
+            android:paddingTop="@dimen/small_gap"
+            android:paddingEnd="@dimen/medium_gap"
+            android:paddingBottom="@dimen/small_gap">
 
             <TextView
                 android:id="@+id/player_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/player_name"
+                android:textColor="@android:color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -61,6 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/player_level"
+                android:textColor="@android:color/black"
                 android:textSize="12sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/player_name" />
@@ -71,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:text="1"
+                android:textColor="@android:color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toRightOf="@id/level_text"
@@ -80,15 +94,16 @@
                 android:id="@+id/exp_info"
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
-                android:text="1/10"
-                android:textSize="10sp"
-                android:textAlignment="center"
                 android:elevation="@dimen/text_elevation"
+                android:fontFamily="serif-monospace"
+                android:text="1/10"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/exp_bar"
                 app:layout_constraintLeft_toLeftOf="@id/exp_bar"
                 app:layout_constraintRight_toRightOf="@id/exp_bar"
-                app:layout_constraintTop_toTopOf="@id/exp_bar"
-                app:layout_constraintBottom_toBottomOf="@id/exp_bar"
-                />
+                app:layout_constraintTop_toTopOf="@id/exp_bar" />
 
             <ProgressBar
                 android:id="@+id/exp_bar"
@@ -96,7 +111,6 @@
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
                 android:max="10"
-                android:min="0"
                 android:progress="1"
                 android:progressTint="@color/colorExperience"
                 android:scaleY="3"
@@ -116,8 +130,8 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:backgroundTint="@android:color/white"
                     app:cardCornerRadius="25dp"
@@ -146,75 +160,77 @@
                 android:id="@+id/hp_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/text_elevation"
                 android:layout_marginLeft="4dp"
+                android:elevation="@dimen/text_elevation"
+                android:fontFamily="serif-monospace"
                 android:text="@string/health"
                 android:textSize="12sp"
-                app:layout_constraintTop_toTopOf="@id/hp_bar"
-                app:layout_constraintLeft_toLeftOf="@id/hp_bar"/>
+                app:layout_constraintLeft_toLeftOf="@id/hp_bar"
+                app:layout_constraintTop_toTopOf="@id/hp_bar" />
 
             <TextView
                 android:id="@+id/hp_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/small_gap"
+                android:elevation="@dimen/text_elevation"
+                android:fontFamily="serif-monospace"
                 android:text="10/10"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:elevation="@dimen/text_elevation"
-                app:layout_constraintTop_toTopOf="@id/hp_bar"
-                app:layout_constraintRight_toRightOf="@id/hp_bar"/>
+                app:layout_constraintRight_toRightOf="@id/hp_bar"
+                app:layout_constraintTop_toTopOf="@id/hp_bar" />
 
             <ProgressBar
                 android:id="@+id/hp_bar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:max="10"
-                android:min="0"
                 android:progress="10"
                 android:progressTint="@color/colorHealth"
                 android:scaleY="4"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/mp_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/magic"
                 android:layout_marginLeft="@dimen/small_gap"
-                android:textSize="12sp"
                 android:elevation="@dimen/text_elevation"
+                android:fontFamily="serif-monospace"
+                android:text="@string/magic"
+                android:textSize="12sp"
                 app:layout_constraintLeft_toLeftOf="@id/mp_bar"
-                app:layout_constraintTop_toTopOf="@id/mp_bar"/>
+                app:layout_constraintTop_toTopOf="@id/mp_bar" />
 
             <TextView
                 android:id="@+id/mp_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/small_gap"
+                android:elevation="@dimen/text_elevation"
+                android:fontFamily="serif-monospace"
                 android:text="5/5"
                 android:textSize="12sp"
-                android:elevation="@dimen/text_elevation"
                 android:textStyle="bold"
                 app:layout_constraintRight_toRightOf="@id/mp_bar"
-                app:layout_constraintTop_toTopOf="@id/mp_bar"/>
+                app:layout_constraintTop_toTopOf="@id/mp_bar" />
 
             <ProgressBar
                 android:id="@+id/mp_bar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/medium_gap"
+                android:layout_marginBottom="8dp"
                 android:max="5"
-                android:min="0"
                 android:progress="5"
                 android:progressTint="@color/colorMagic"
                 android:scaleY="4"
-                app:layout_constraintTop_toBottomOf="@id/hp_bar"
-                app:layout_constraintRight_toRightOf="parent"/>
-
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

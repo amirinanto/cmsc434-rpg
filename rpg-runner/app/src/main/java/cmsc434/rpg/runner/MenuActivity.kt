@@ -3,11 +3,16 @@ package cmsc434.rpg.runner
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.BounceInterpolator
 
 import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity() {
+
+    private var right = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -27,5 +32,30 @@ class MenuActivity : AppCompatActivity() {
             var intent = Intent(this, BattleActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        moveRight()
+    }
+
+    private fun moveRight(){
+        run_animation_block.animate()
+            .translationX(1200f)
+            .setDuration(2000)
+            .withEndAction {
+                moveLeft()
+            }
+            .start()
+    }
+
+    private fun moveLeft() {
+        run_animation_block.animate()
+            .translationX(-1200f)
+            .setDuration(0)
+            .withEndAction {
+                moveRight()
+            }
+            .start()
     }
 }

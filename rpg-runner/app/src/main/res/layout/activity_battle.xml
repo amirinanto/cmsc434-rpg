@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BattleActivity"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    android:background="@android:color/white"
+    tools:context=".BattleActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/enemy_card"
@@ -14,6 +15,7 @@
         android:layout_marginStart="@dimen/big_gap"
         android:layout_marginTop="@dimen/big_gap"
         android:layout_marginEnd="@dimen/big_gap"
+        app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="@dimen/big_gap"
         app:contentPadding="@dimen/big_gap"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +34,7 @@
                 android:layout_height="100dp"
                 android:contentDescription="@string/enemy_name"
                 android:scaleType="centerCrop"
-                tools:srcCompat="@drawable/icon_slime_monster" />
+                app:srcCompat="@drawable/icon_slime_monster" />
 
             <TextView
                 android:id="@+id/enemyName"
@@ -44,6 +46,7 @@
                 android:paddingRight="@dimen/big_gap"
                 android:paddingBottom="@dimen/small_gap"
                 android:text="@string/enemy_name"
+                android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -57,7 +60,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/medium_gap"
-                    android:text="@string/health" />
+                    android:text="@string/health"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/enemy_health"
@@ -66,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_health"
+                    android:textColor="@android:color/black"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -80,7 +85,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/medium_gap"
-                    android:text="@string/magic" />
+                    android:text="@string/magic"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/enemy_magic"
@@ -89,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/default_magic"
+                    android:textColor="@android:color/black"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
@@ -100,6 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/big_gap"
+        app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +122,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/battle_status" />
+                android:text="@string/battle_status"
+                android:textColor="@color/common_google_signin_btn_text_light" />
 
             <View
                 android:layout_width="match_parent"
@@ -127,7 +136,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/big_gap"
-                android:text="@string/player_turn" />
+                android:text="@string/player_turn"
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -138,71 +148,73 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/big_gap"
-        app:layout_constraintTop_toBottomOf="@id/battle_status_card"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        >
+        app:layout_constraintTop_toBottomOf="@id/battle_status_card">
 
         <TextView
             android:id="@+id/player_stat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/player_stat"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/common_google_signin_btn_text_light"
             app:layout_constraintLeft_toLeftOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/player_stat_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
-            app:layout_constraintTop_toBottomOf="@id/player_stat"/>
+            app:layout_constraintTop_toBottomOf="@id/player_stat" />
 
         <TextView
             android:id="@+id/player_hp_text"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/big_gap"
             android:text="@string/health"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/player_stat_divider" />
 
         <TextView
             android:id="@+id/player_hp_info"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/medium_gap"
-            android:layout_marginEnd="@dimen/big_gap"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="@dimen/big_gap"
             android:text="@string/default_health"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@android:color/black"
             android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@id/player_hp_text"
-            app:layout_constraintTop_toBottomOf="@id/player_stat_divider"/>
+            app:layout_constraintTop_toBottomOf="@id/player_stat_divider" />
 
         <TextView
             android:id="@+id/player_mp_text"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/medium_gap"
             android:layout_marginTop="@dimen/big_gap"
+            android:layout_marginRight="8dp"
             android:text="@string/magic"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@android:color/black"
             app:layout_constraintRight_toLeftOf="@id/player_mp_info"
             app:layout_constraintTop_toBottomOf="@id/player_stat_divider" />
 
         <TextView
             android:id="@+id/player_mp_info"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/big_gap"
             android:text="@string/default_magic"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@android:color/black"
             android:textStyle="bold"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/player_stat_divider"/>
+            app:layout_constraintTop_toBottomOf="@id/player_stat_divider" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -223,6 +235,7 @@
             android:padding="@dimen/big_gap"
             android:text="@string/attack"
             android:textAllCaps="false"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/defend_button"
             app:layout_constraintEnd_toStartOf="@+id/defend_button"
@@ -236,6 +249,7 @@
             android:padding="@dimen/big_gap"
             android:text="@string/defend"
             android:textAllCaps="false"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/skill_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -250,6 +264,7 @@
             android:padding="@dimen/big_gap"
             android:text="@string/skill"
             android:textAllCaps="false"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/item_button"
             app:layout_constraintEnd_toStartOf="@+id/item_button"
@@ -263,6 +278,7 @@
             android:padding="@dimen/big_gap"
             android:text="@string/item"
             android:textAllCaps="false"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -278,13 +294,13 @@
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:tint="@android:color/white"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
-        app:tint="@android:color/white"
-        android:tint="@android:color/white"
-        app:maxImageSize="36dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:maxImageSize="36dp"
+        app:tint="@android:color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
