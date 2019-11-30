@@ -25,7 +25,8 @@ class MenuActivity : AppCompatActivity() {
         }
 
         mission_button.setOnClickListener {
-
+            var intent = Intent(this, MissionActivity::class.java)
+            startActivity(intent)
         }
 
         character_button.setOnClickListener {
@@ -43,6 +44,7 @@ class MenuActivity : AppCompatActivity() {
         run_animation_block.animate()
             .translationX(1200f)
             .setDuration(2000)
+            .setInterpolator(AccelerateDecelerateInterpolator())
             .withEndAction {
                 moveLeft()
             }

@@ -26,11 +26,48 @@
     <string name="item">Item</string>
     <string name="defend">Defend</string>
 
+    <!--mission screen texts-->
+    <string name="daily">Daily</string>
+    <string name="story">Story</string>
+    <string name="req">Requirements</string>
+    <string name="reward">Rewards</string>
+    <string name="start_mission">Start!</string>
+    <string name="done_mission">Done!</string>
+
     <!--default values texts-->
     <string name="default_health">10/10</string>
     <string name="default_magic">5/5</string>
     <string name="default_mile">0.1</string>
     <string name="default_exp">1/10</string>
     <string name="default_level">Level 1</string>
+    <string name="default_mission_title">Mission *: <b>Mission Tittle</b></string>
+    <string name="default_mission_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elit sed vulputate mi sit amet mauris commodo.</string>
+    <string name="default_mission_requirements"><b>*</b> Miles</string>
+    <string name="default_mission_reward"><b>***</b> exp, <b>***</b> gold</string>
+
+    <!--missions-->
+    <string-array name="story_missions_title">
+        <item>Mission 1: <b>Who am I?</b></item>
+        <item>Mission 2: <b>Who are You?</b></item>
+        <item>Mission 3: <b>Who are They?</b></item>
+    </string-array>
+
+    <string-array name="story_missions_desc">
+        <item>Scared and confused, Ryu runs away from the burning <b>Krata Village</b>.</item>
+        <item>An old man runs by Ryu side near <b>Mountain Ju</b>. <i>"The truth is hidden within yourself, Ryu."</i> he said.</item>
+        <item>Just before <b>The Ruin of Kuda</b>, Ryu's path was blocked by a group of raiders.</item>
+    </string-array>
+
+    <string-array name="story_missions_req">
+        <item><b>1</b> Mile</item>
+        <item><b>2</b> Miles</item>
+        <item><b>3</b> Miles</item>
+    </string-array>
+
+    <string-array name="story_missions_rewards">
+        <item><b>200</b> exp, <b>200</b> gold</item>
+        <item><b>500</b> exp, <b>500</b> gold</item>
+        <item><b>1000</b> exp, <b>1000</b> gold</item>
+    </string-array>
 
 </resources>
