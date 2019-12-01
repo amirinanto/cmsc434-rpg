@@ -6,6 +6,5 @@ data class Mission(val id: Int,
                    val reqString: String,
                    val reqInt: Int,
                    val rewardString: String,
-                   val rewardExp: Int,
-                   val rewardGold: Int,
+                   val rewardInt: Int,
                    var isDone: Boolean = false)

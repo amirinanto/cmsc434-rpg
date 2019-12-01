@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:fontFamily="serif"
             android:gravity="center"
-            android:padding="@dimen/medium_gap"
+            android:padding="@dimen/big_gap"
             android:text="@string/app_name"
             android:textAlignment="center"
             android:textColor="@android:color/white"
@@ -33,7 +33,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/animation_card"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@android:color/white"
         app:cardElevation="3dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
@@ -59,7 +59,7 @@
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="80dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="80dp"
                     android:contentDescription="running animation"
                     android:elevation="3dp"
                     app:srcCompat="@drawable/run" />
@@ -67,7 +67,7 @@
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="80dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="80dp"
                     android:contentDescription="running animation"
                     android:elevation="3dp"
                     app:srcCompat="@drawable/icon_slime_monster" />
