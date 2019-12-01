@@ -54,8 +54,8 @@
 
     <string-array name="story_missions_desc">
         <item>Scared and confused, Ryu runs away from the burning <b>Krata Village</b>.</item>
-        <item>An old man runs by Ryu side near <b>Mountain Ju</b>. <i>"The truth is hidden within yourself, Ryu."</i> he said.</item>
-        <item>Just before <b>The Ruin of Kuda</b>, Ryu's path was blocked by a group of raiders.</item>
+        <item>An old man runs by Ryu side near <b>Mountain Ju</b>. <i>\"The truth is hidden within yourself, Ryu.\"</i> he said.</item>
+        <item>Just before <b>The Ruin of Kuda</b>, Ryu\'s path was blocked by a group of raiders.</item>
     </string-array>
 
     <string-array name="story_missions_req">
