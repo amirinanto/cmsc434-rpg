@@ -1,7 +1,9 @@
 package cmsc434.rpg.runner
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import cmsc434.rpg.runner.list.Mission
 import cmsc434.rpg.runner.list.MissionAdapter
@@ -17,11 +19,63 @@ class MissionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mission)
 
+        story_button.setOnClickListener {
+            loadStoryMissions()
+        }
+
+        daily_button.setOnClickListener {
+            loadDailyMissions()
+        }
+
+        fab_back.setOnClickListener {
+            finish()
+        }
+
+        missionList = ArrayList()
         loadStoryMissions()
     }
 
+    private fun setStorySelected(yes: Boolean) {
+        val blue = ContextCompat.getColor(applicationContext, R.color.colorPrimary)
+        val white = Color.WHITE
+        if (yes){
+            story_button.setBackgroundColor(blue)
+            story_button.setTextColor(white)
+            daily_button.setBackgroundColor(white)
+            daily_button.setTextColor(blue)
+        } else {
+            story_button.setBackgroundColor(white)
+            story_button.setTextColor(blue)
+            daily_button.setBackgroundColor(blue)
+            daily_button.setTextColor(white)
+        }
+    }
+
+    private fun loadDailyMissions() {
+        setStorySelected(false)
+
+        missionList.clear()
+
+        for (i in 1..5) {
+            val reward = i*100
+            missionList.add(
+                Mission(i,
+                    "RUN ${i} Miles",
+                    "Enjoy your run.",
+                    "${i} Miles",
+                    i*1,
+                    "${reward} exp, ${reward} gold",
+                    reward))
+        }
+
+        setMissions()
+    }
+
+
     private fun loadStoryMissions() {
-        missionList = ArrayList()
+        setStorySelected(true)
+
+        missionList.clear()
 
         val mission_desc = resources.getStringArray(R.array.story_missions_desc)
         val mission_title = resources.getStringArray(R.array.story_missions_title)
@@ -38,12 +92,15 @@ class MissionActivity : AppCompatActivity() {
                 (i+1)*200))
         }
 
+        setMissions()
+    }
+
+    private fun setMissions() {
         missionAdapter = MissionAdapter(missionList) {
 
         }
 
         mission_list.layoutManager = LinearLayoutManager(applicationContext)
         mission_list.adapter = missionAdapter
-
     }
 }

@@ -1,7 +1,9 @@
 package cmsc434.rpg.runner
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -24,6 +26,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
 
     private var zoomLevel: Float = 18.0f
+    private var lastId: Int = 0
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -127,7 +130,8 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun addMapItem(monster: Boolean, name: String, x: Float, y: Float): View {
-        val view = MapItemView(applicationContext, monster, name)
+        val view = MapItemView(applicationContext, monster, name, lastId++)
+
         view.setOnClickListener {
             if (view.monster) {
                 Toast.makeText(applicationContext, "This is monster yo!", Toast.LENGTH_SHORT).show()
@@ -142,8 +146,19 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
         return view
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            BATTLE_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_CANCELED) {
+                }
+            }
+        }
+    }
+
     companion object {
         const val LOCATION_PERMISSION_REQUEST_CODE = 0
+        const val BATTLE_REQUEST_CODE = 1
 
         const val TAG = "RPG-RUNNER"
 

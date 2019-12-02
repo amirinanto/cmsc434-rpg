@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.icon_map_item.view.*
 
-class MapItemView (context: Context, var monster: Boolean, var name: String): ConstraintLayout(context) {
+class MapItemView (context: Context, var monster: Boolean, var name: String, val _id: Int): ConstraintLayout(context) {
     init {
         inflate(context, R.layout.icon_map_item, this)
 
