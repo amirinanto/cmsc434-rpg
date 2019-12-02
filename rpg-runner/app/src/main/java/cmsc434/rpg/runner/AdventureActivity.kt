@@ -1,10 +1,12 @@
 package cmsc434.rpg.runner
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -15,7 +17,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_adventure.*
 
 class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -28,7 +30,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_adventure)
 
         fab_menu.setOnClickListener {
 
@@ -98,6 +100,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
             .addOnSuccessListener {
                 Toast.makeText(applicationContext, it.toString(), Toast.LENGTH_LONG).show()
                 updateLocation(it)
+                addMapItem(true, "Slime", 0f, 0f)
             }
             .addOnCanceledListener {
                 Toast.makeText(applicationContext, "canceled", Toast.LENGTH_LONG).show() }
@@ -107,6 +110,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
             .addOnFailureListener{
                 Toast.makeText(applicationContext, "failure" + it.toString(), Toast.LENGTH_LONG).show()
             }
+
 
     }
 
@@ -122,10 +126,29 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 0
+    private fun addMapItem(monster: Boolean, name: String, x: Float, y: Float): View {
+        val view = MapItemView(applicationContext, monster, name)
+        view.setOnClickListener {
+            if (view.monster) {
+                Toast.makeText(applicationContext, "This is monster yo!", Toast.LENGTH_SHORT).show()
+            }
+        }
 
-        private const val TAG = "RPG-RUNNER"
+        items_layout.addView(view)
+
+        view.x = x
+        view.y = y
+
+        return view
+    }
+
+    companion object {
+        const val LOCATION_PERMISSION_REQUEST_CODE = 0
+
+        const val TAG = "RPG-RUNNER"
+
+        const val TYPE_MONSTER = 1
+        const val TYPE_CHEST = 2
     }
 
 }

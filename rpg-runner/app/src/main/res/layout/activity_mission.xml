@@ -35,11 +35,13 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/menu_gap"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:text="@string/daily"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/story_button"
         app:layout_constraintTop_toBottomOf="@+id/titleCard" />
 
     <Button
@@ -47,10 +49,11 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="@dimen/menu_gap"
+        android:layout_marginTop="32dp"
         android:text="@string/story"
         android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/daily_button"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleCard" />
 
@@ -73,7 +76,7 @@
         android:id="@+id/mission_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:padding="@dimen/big_gap"
         app:layout_constraintBottom_toTopOf="@+id/fab_back2"
