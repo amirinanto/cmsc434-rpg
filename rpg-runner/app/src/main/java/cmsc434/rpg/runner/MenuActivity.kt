@@ -1,6 +1,8 @@
 package cmsc434.rpg.runner
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -14,10 +16,23 @@ class MenuActivity : AppCompatActivity() {
 
     private var right = false
 
+    private lateinit var player: PlayerHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
+
+        player = applicationContext.player
+
+        if (!player.isExist())
+            player.initPlayer("Ryu")
+
+        val p = player.getPlayer()
+        player_name.text = p.name
+        level_info.text = "Level ${p.level}"
+        exp_info.text = "${p.exp}/${p.level*10}"
+
 
         adventure_button.setOnClickListener {
             var intent = Intent(this, AdventureActivity::class.java)
@@ -29,10 +44,6 @@ class MenuActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        character_button.setOnClickListener {
-            var intent = Intent(this, BattleActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     override fun onResume() {
@@ -43,7 +54,7 @@ class MenuActivity : AppCompatActivity() {
     private fun moveRight(){
         run_animation_block.animate()
             .translationX(1200f)
-            .setDuration(2000)
+            .setDuration(3000)
             .setInterpolator(AccelerateDecelerateInterpolator())
             .withEndAction {
                 moveLeft()
@@ -53,7 +64,7 @@ class MenuActivity : AppCompatActivity() {
 
     private fun moveLeft() {
         run_animation_block.animate()
-            .translationX(-1200f)
+            .translationX(-500f)
             .setDuration(0)
             .withEndAction {
                 moveRight()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,299 +8,389 @@
     android:background="@android:color/white"
     tools:context=".BattleActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/enemy_card"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/big_gap"
-        android:layout_marginTop="@dimen/big_gap"
-        android:layout_marginEnd="@dimen/big_gap"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="@dimen/big_gap"
-        app:contentPadding="@dimen/big_gap"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/damage_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:elevation="10dp"
+            android:text="- 10"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/enemy_card"
+            app:layout_constraintStart_toStartOf="@+id/enemy_card"
+            app:layout_constraintTop_toTopOf="@+id/enemy_card" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/enemy_card"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/enemyImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:contentDescription="@string/enemy_name"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/icon_slime_monster" />
-
-            <TextView
-                android:id="@+id/enemyName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/enemyname"
-                android:paddingLeft="@dimen/big_gap"
-                android:paddingTop="@dimen/small_gap"
-                android:paddingRight="@dimen/big_gap"
-                android:paddingBottom="@dimen/small_gap"
-                android:text="@string/enemy_name"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_gap"
+            android:layout_marginTop="@dimen/big_gap"
+            android:layout_marginEnd="@dimen/big_gap"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="@dimen/big_gap"
+            app:contentPadding="@dimen/big_gap"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/small_gap">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/enemyImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/enemy_name"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/icon_slime_monster" />
 
                 <TextView
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="match_parent"
+                    android:id="@+id/enemy_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/medium_gap"
-                    android:text="@string/health"
-                    android:textColor="@android:color/black" />
-
-                <TextView
-                    android:id="@+id/enemy_health"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/default_health"
+                    android:background="@drawable/enemyname"
+                    android:paddingLeft="@dimen/big_gap"
+                    android:paddingTop="@dimen/small_gap"
+                    android:paddingRight="@dimen/big_gap"
+                    android:paddingBottom="@dimen/small_gap"
+                    android:text="@string/enemy_name"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/small_gap">
+
+                    <TextView
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/medium_gap"
+                        android:text="@string/health"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/enemy_health"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/default_health"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/small_gap">
+
+                    <TextView
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/medium_gap"
+                        android:text="@string/magic"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/enemy_magic"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/default_none"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
             </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/battle_status_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/big_gap"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enemy_card">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/small_gap">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/big_gap">
 
                 <TextView
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/battle_status"
+                    android:textColor="@color/common_google_signin_btn_text_light" />
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/medium_gap"
-                    android:text="@string/magic"
-                    android:textColor="@android:color/black" />
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
 
                 <TextView
-                    android:id="@+id/enemy_magic"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="0dp"
+                    android:id="@+id/battle_status"
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/default_magic"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="@dimen/big_gap"
+                    android:text="@string/player_turn"
+                    android:textColor="@android:color/black" />
             </LinearLayout>
-        </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/battle_status_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/big_gap"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemy_card">
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/player_stat_card"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/big_gap">
+            android:padding="@dimen/big_gap"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/battle_status_card">
 
             <TextView
+                android:id="@+id/player_stat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/battle_status"
-                android:textColor="@color/common_google_signin_btn_text_light" />
+                android:text="@string/player_stat"
+                android:textColor="@color/common_google_signin_btn_text_light"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <View
+                android:id="@+id/player_stat_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
+                android:background="@android:color/darker_gray"
+                app:layout_constraintTop_toBottomOf="@id/player_stat" />
 
             <TextView
-                android:id="@+id/battle_status"
+                android:id="@+id/player_hp_text"
                 style="@style/TextAppearance.MaterialComponents.Headline5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/big_gap"
-                android:text="@string/player_turn"
-                android:textColor="@android:color/black" />
-        </LinearLayout>
+                android:text="@string/health"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/player_stat_divider" />
 
-    </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/player_hp_info"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="@dimen/big_gap"
+                android:text="@string/default_health"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/player_hp_text"
+                app:layout_constraintTop_toBottomOf="@id/player_stat_divider" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/player_stat_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/big_gap"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/battle_status_card">
+            <TextView
+                android:id="@+id/player_mp_text"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/big_gap"
+                android:layout_marginRight="8dp"
+                android:text="@string/magic"
+                android:textColor="@android:color/black"
+                app:layout_constraintRight_toLeftOf="@id/player_mp_info"
+                app:layout_constraintTop_toBottomOf="@id/player_stat_divider" />
 
-        <TextView
-            android:id="@+id/player_stat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/player_stat"
-            android:textColor="@color/common_google_signin_btn_text_light"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/player_mp_info"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/big_gap"
+                android:text="@string/default_magic"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/player_stat_divider" />
 
-        <View
-            android:id="@+id/player_stat_divider"
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/primary_action_card"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintTop_toBottomOf="@id/player_stat" />
-
-        <TextView
-            android:id="@+id/player_hp_text"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/big_gap"
-            android:text="@string/health"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/player_stat_divider" />
+            android:padding="@dimen/medium_gap"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/player_stat_card">
 
-        <TextView
-            android:id="@+id/player_hp_info"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="wrap_content"
+
+            <TextView
+                android:id="@+id/player_stat3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Choose your action"
+                android:textColor="@color/common_google_signin_btn_text_light"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/attack_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_gap"
+                android:padding="@dimen/big_gap"
+                android:text="@string/attack"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@+id/defend_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/player_stat3" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/defend_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_gap"
+                android:padding="@dimen/big_gap"
+                android:text="@string/defend"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/skill_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/attack_button"
+                app:layout_constraintTop_toBottomOf="@+id/player_stat3" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/skill_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_gap"
+                android:padding="@dimen/big_gap"
+                android:text="@string/skill"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/item_button"
+                app:layout_constraintEnd_toStartOf="@+id/item_button"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/item_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_gap"
+                android:padding="@dimen/big_gap"
+                android:text="@string/item"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/skill_button" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_action_card"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="@dimen/big_gap"
-            android:text="@string/default_health"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/player_hp_text"
-            app:layout_constraintTop_toBottomOf="@id/player_stat_divider" />
-
-        <TextView
-            android:id="@+id/player_mp_text"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/big_gap"
-            android:layout_marginRight="8dp"
-            android:text="@string/magic"
-            android:textColor="@android:color/black"
-            app:layout_constraintRight_toLeftOf="@id/player_mp_info"
-            app:layout_constraintTop_toBottomOf="@id/player_stat_divider" />
-
-        <TextView
-            android:id="@+id/player_mp_info"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/big_gap"
-            android:text="@string/default_magic"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/player_stat_divider" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/medium_gap"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_stat_card">
-
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/attack_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_gap"
-            android:padding="@dimen/big_gap"
-            android:text="@string/attack"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/defend_button"
-            app:layout_constraintEnd_toStartOf="@+id/defend_button"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/defend_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_gap"
-            android:padding="@dimen/big_gap"
-            android:text="@string/defend"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/skill_button"
+            android:padding="@dimen/medium_gap"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/attack_button" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/primary_action_card">
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/skill_button"
-            android:layout_width="0dp"
+            <TextView
+                android:id="@+id/player_stat2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="Choose your item"
+                android:textColor="@color/common_google_signin_btn_text_light"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/item1_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_gap"
+                android:layout_marginEnd="16dp"
+                android:padding="@dimen/big_gap"
+                android:text="@string/attack"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@+id/item2_button"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/player_stat2" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/item2_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_gap"
+                android:padding="@dimen/big_gap"
+                android:text="@string/defend"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/item1_button"
+                app:layout_constraintTop_toBottomOf="@+id/player_stat2" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_close"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_gap"
-            android:padding="@dimen/big_gap"
-            android:text="@string/skill"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/item_button"
-            app:layout_constraintEnd_toStartOf="@+id/item_button"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/item_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_gap"
-            android:padding="@dimen/big_gap"
-            android:text="@string/item"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
+            android:layout_margin="@dimen/fab_margin"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:tint="@android:color/white"
+            app:backgroundTint="@color/colorPrimary"
+            app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/skill_button" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_action_card"
+            app:maxImageSize="36dp"
+            app:tint="@android:color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        android:tint="@android:color/white"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:maxImageSize="36dp"
-        app:tint="@android:color/white" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

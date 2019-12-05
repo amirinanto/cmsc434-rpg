@@ -37,7 +37,8 @@
     <!--default values texts-->
     <string name="default_health">10/10</string>
     <string name="default_magic">5/5</string>
-    <string name="default_mile">0.1</string>
+    <string name="default_none">-/-</string>
+    <string name="default_mile">0.0</string>
     <string name="default_exp">1/10</string>
     <string name="default_level">Level 1</string>
     <string name="default_mission_title">Mission *: <b>Mission Tittle</b></string>

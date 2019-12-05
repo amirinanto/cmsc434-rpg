@@ -2,17 +2,22 @@ package cmsc434.rpg.runner
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.transition.Fade
+import androidx.transition.Transition
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -20,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 
 import kotlinx.android.synthetic.main.activity_adventure.*
+import kotlin.random.Random
 
 class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -27,7 +33,11 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var zoomLevel: Float = 18.0f
     private var lastId: Int = 0
+    private var numOfMonster = 3
+    private var numOfChest = 1
 
+    private lateinit var player: PlayerHelper
+    private lateinit var sharedPref: SharedPreferences
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +56,11 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
         (supportFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment)
             .getMapAsync(this)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        player = applicationContext.player
+        if (player.isExist())
+            updatePlayer()
+        else
+            player.initPlayer("Ryu")
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
@@ -54,6 +68,11 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
             requestLocationPermission()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
     private fun requestLocationPermission() {
@@ -101,9 +120,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
 
         fusedLocationClient.lastLocation
             .addOnSuccessListener {
-                Toast.makeText(applicationContext, it.toString(), Toast.LENGTH_LONG).show()
                 updateLocation(it)
-                addMapItem(true, "Slime", 0f, 0f)
             }
             .addOnCanceledListener {
                 Toast.makeText(applicationContext, "canceled", Toast.LENGTH_LONG).show() }
@@ -124,20 +141,40 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
             val curLatLng = LatLng(location.latitude, location.longitude)
 
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(curLatLng, zoomLevel))
+
+            for (x in 1..numOfMonster)
+                addMapItem(true)
+
+            for (x in 1..numOfChest)
+                addMapItem(false)
+
         } else {
             Log.i(TAG, "NULL LOCATION")
         }
     }
 
-    private fun addMapItem(monster: Boolean, name: String, x: Float, y: Float): View {
+
+    private fun addMapItem(monster: Boolean): View {
+        val r = Random
+        val h = items_layout.height
+        val w = items_layout.width
+        val x = r.nextInt(0,w - 200).toFloat()
+        val y = r.nextInt(0,h - 500).toFloat()
+        val name = if (monster) "Slime Monster" else "Chest"
         val view = MapItemView(applicationContext, monster, name, lastId++)
 
         view.setOnClickListener {
-            if (view.monster) {
-                Toast.makeText(applicationContext, "This is monster yo!", Toast.LENGTH_SHORT).show()
-            }
+//                Toast.makeText(applicationContext, "This is something yo! x: ${x} y: ${y}, h: ${h}, w: ${w}", Toast.LENGTH_SHORT).show()
+            if (monster)
+                startActivityForResult(
+                    Intent(this, BattleActivity::class.java)
+                        .putExtra(MONSTER_ID_KEY, view._id),
+                    BATTLE_REQUEST_CODE)
+            else
+                openChest(view._id)
         }
 
+        TransitionManager.beginDelayedTransition(items_layout, android.transition.Fade())
         items_layout.addView(view)
 
         view.x = x
@@ -146,11 +183,51 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
         return view
     }
 
+    private fun openChest(_id: Int) {
+        player.addExp(1)
+        updatePlayer()
+        AlertDialog.Builder(this)
+            .setTitle("Chest Opened!")
+            .setMessage("\nYou get: \n\n1 gold\n1 exp")
+            .setPositiveButton("Continue") {
+                _,_ ->
+                removeMapItem(_id)
+            }
+            .show()
+    }
+
+    private fun updatePlayer() {
+        val p = player.getPlayer()
+        level_text.text = "Level: ${p.level}"
+        player_name.text = "${p.name}"
+        hp_info.text = "${p.hp}/${p.hp}"
+        mp_info.text = "${p.mp}/${p.mp}"
+        exp_info.text = "${p.exp}/${p.level*10}"
+    }
+
+    private fun removeMapItem(_id: Int) {
+        for (i in 0..items_layout.childCount) {
+            var v = items_layout.getChildAt(i) as MapItemView
+            if (v._id == _id) {
+                items_layout.removeView(v)
+                return
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             BATTLE_REQUEST_CODE -> {
-                if (resultCode == Activity.RESULT_CANCELED) {
+                if (resultCode == Activity.RESULT_OK) {
+                    val _id = data?.getIntExtra(MONSTER_ID_KEY, -1)
+                    if (_id != null && _id != -1) {
+                        removeMapItem(_id)
+                    }
+                    player.addExp(1)
+                    updatePlayer()
+                } else {
+
                 }
             }
         }
@@ -162,8 +239,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
 
         const val TAG = "RPG-RUNNER"
 
-        const val TYPE_MONSTER = 1
-        const val TYPE_CHEST = 2
+        const val MONSTER_ID_KEY = "monster_id"
     }
 
 }

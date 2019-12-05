@@ -32,6 +32,13 @@ class MissionActivity : AppCompatActivity() {
         }
 
         missionList = ArrayList()
+        missionAdapter = MissionAdapter(missionList) {
+
+        }
+
+        mission_list.layoutManager = LinearLayoutManager(applicationContext)
+        mission_list.adapter = missionAdapter
+
         loadStoryMissions()
     }
 
@@ -56,7 +63,7 @@ class MissionActivity : AppCompatActivity() {
 
         missionList.clear()
 
-        for (i in 1..5) {
+        for (i in 1..10) {
             val reward = i*100
             missionList.add(
                 Mission(i,
@@ -68,7 +75,7 @@ class MissionActivity : AppCompatActivity() {
                     reward))
         }
 
-        setMissions()
+        missionAdapter.notifyDataSetChanged()
     }
 
 
@@ -92,15 +99,7 @@ class MissionActivity : AppCompatActivity() {
                 (i+1)*200))
         }
 
-        setMissions()
+        missionAdapter.notifyDataSetChanged()
     }
 
-    private fun setMissions() {
-        missionAdapter = MissionAdapter(missionList) {
-
-        }
-
-        mission_list.layoutManager = LinearLayoutManager(applicationContext)
-        mission_list.adapter = missionAdapter
-    }
 }
