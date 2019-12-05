@@ -1,14 +1,11 @@
 package cmsc434.rpg.runner
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.Animation
-import android.view.animation.BounceInterpolator
+import cmsc434.rpg.runner.helper.PlayerHelper
+import cmsc434.rpg.runner.helper.player
 
 import kotlinx.android.synthetic.main.activity_menu.*
 

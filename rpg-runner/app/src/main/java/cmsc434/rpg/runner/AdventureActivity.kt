@@ -3,9 +3,7 @@ package cmsc434.rpg.runner
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -16,8 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.transition.Fade
-import androidx.transition.Transition
+import cmsc434.rpg.runner.helper.PlayerHelper
+import cmsc434.rpg.runner.helper.PrefHelper
+import cmsc434.rpg.runner.helper.player
+import cmsc434.rpg.runner.helper.pref
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
@@ -37,7 +37,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
     private var numOfChest = 1
 
     private val pref: PrefHelper = applicationContext.pref
-    private val player: PlayerHelper  = applicationContext.player
+    private val player: PlayerHelper = applicationContext.player
     private var fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {

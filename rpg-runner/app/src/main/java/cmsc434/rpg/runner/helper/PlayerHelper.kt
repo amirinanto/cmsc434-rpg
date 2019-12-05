@@ -1,4 +1,4 @@
-package cmsc434.rpg.runner
+package cmsc434.rpg.runner.helper
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -21,7 +21,8 @@ class PlayerHelper private constructor(context: Context) {
 
         private var instance: PlayerHelper? = null
         @Synchronized
-        fun getInstance(context: Context) = instance ?: PlayerHelper(context.applicationContext)
+        fun getInstance(context: Context) = instance
+            ?: PlayerHelper(context.applicationContext)
     }
 
     init {
@@ -93,4 +94,7 @@ class PlayerHelper private constructor(context: Context) {
     }
 }
 
-val Context.player: PlayerHelper get() = PlayerHelper.getInstance(this)
+val Context.player: PlayerHelper
+    get() = PlayerHelper.getInstance(
+        this
+    )

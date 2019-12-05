@@ -1,4 +1,4 @@
-package cmsc434.rpg.runner
+package cmsc434.rpg.runner.helper
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -10,7 +10,8 @@ class PrefHelper private constructor(context: Context) {
     companion object {
         private var instance: PrefHelper? = null
         @Synchronized
-        fun getInstance(context: Context) = instance ?: PrefHelper(context.applicationContext)
+        fun getInstance(context: Context) = instance
+            ?: PrefHelper(context.applicationContext)
     }
 
     init {
@@ -43,4 +44,7 @@ class PrefHelper private constructor(context: Context) {
     }
 }
 
-val Context.pref: PrefHelper get() = PrefHelper.getInstance(this)
+val Context.pref: PrefHelper
+    get() = PrefHelper.getInstance(
+        this
+    )
