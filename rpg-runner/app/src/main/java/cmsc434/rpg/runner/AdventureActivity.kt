@@ -36,9 +36,9 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
     private var numOfMonster = 3
     private var numOfChest = 1
 
-    private lateinit var player: PlayerHelper
-    private lateinit var sharedPref: SharedPreferences
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val pref: PrefHelper = applicationContext.pref
+    private val player: PlayerHelper  = applicationContext.player
+    private var fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -56,7 +56,6 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
         (supportFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment)
             .getMapAsync(this)
 
-        player = applicationContext.player
         if (player.isExist())
             updatePlayer()
         else
@@ -72,7 +71,6 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
     private fun requestLocationPermission() {

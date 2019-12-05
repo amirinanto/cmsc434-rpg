@@ -6,7 +6,7 @@ import cmsc434.rpg.runner.entity.Player
 
 class PlayerHelper private constructor(context: Context) {
 
-    private lateinit var sharedPref: SharedPreferences
+    private var sharedPref: SharedPreferences
 
     companion object {
         const val PREF_FILE = "rpg_runner"
@@ -34,9 +34,7 @@ class PlayerHelper private constructor(context: Context) {
             putInt(PLAYER_LEVEL, 1)
             putInt(PLAYER_EXP, 0)
             putInt(PLAYER_HP, 10)
-            putInt(PLAYER_MAX_HP, 10)
             putInt(PLAYER_MP, 5)
-            putInt(PLAYER_MAX_MP, 10)
             commit()
         }
     }
