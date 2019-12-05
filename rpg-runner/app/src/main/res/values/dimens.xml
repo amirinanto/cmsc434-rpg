@@ -5,4 +5,7 @@
     <dimen name="big_gap">16dp</dimen>
     <dimen name="menu_gap">40dp</dimen>
     <dimen name="text_elevation">1dp</dimen>
+    <dimen name="app_bar_height">16dp</dimen>
+    <dimen name="text_margin">8dp</dimen>
+    <dimen name="large_text">24dp</dimen>
 </resources>

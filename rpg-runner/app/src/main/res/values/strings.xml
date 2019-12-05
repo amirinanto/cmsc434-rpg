@@ -71,4 +71,10 @@
         <item><b>1000</b> exp, <b>1000</b> gold</item>
     </string-array>
 
+    <string name="music_option_switch">Music</string>
+    <string name="large_text">
+        "This is the Help Page\n"
+        "Help Yourself :)\n"
+    </string>
+
 </resources>
