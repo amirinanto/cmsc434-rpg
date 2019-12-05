@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import cmsc434.rpg.runner.entity.MapItemView
 import cmsc434.rpg.runner.helper.PlayerHelper
 import cmsc434.rpg.runner.helper.PrefHelper
 import cmsc434.rpg.runner.helper.player
@@ -117,19 +118,13 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         fusedLocationClient.lastLocation
-            .addOnSuccessListener {
-                updateLocation(it)
-            }
+            .addOnSuccessListener { updateLocation(it) }
             .addOnCanceledListener {
                 Toast.makeText(applicationContext, "canceled", Toast.LENGTH_LONG).show() }
             .addOnCompleteListener{
-                Toast.makeText(applicationContext, "completed" + it.toString(), Toast.LENGTH_LONG).show()
-            }
+                Toast.makeText(applicationContext, "completed ${it}", Toast.LENGTH_LONG).show() }
             .addOnFailureListener{
-                Toast.makeText(applicationContext, "failure" + it.toString(), Toast.LENGTH_LONG).show()
-            }
-
-
+                Toast.makeText(applicationContext, "failure ${it}", Toast.LENGTH_LONG).show() }
     }
 
     private fun updateLocation(location: Location?) {
@@ -159,7 +154,12 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
         val x = r.nextInt(0,w - 200).toFloat()
         val y = r.nextInt(0,h - 500).toFloat()
         val name = if (monster) "Slime Monster" else "Chest"
-        val view = MapItemView(applicationContext, monster, name, lastId++)
+        val view = MapItemView(
+            applicationContext,
+            monster,
+            name,
+            lastId++
+        )
 
         view.setOnClickListener {
 //                Toast.makeText(applicationContext, "This is something yo! x: ${x} y: ${y}, h: ${h}, w: ${w}", Toast.LENGTH_SHORT).show()

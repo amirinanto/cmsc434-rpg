@@ -1,9 +1,9 @@
-package cmsc434.rpg.runner
+package cmsc434.rpg.runner.entity
 
 import android.content.Context
 import android.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
-import cmsc434.rpg.runner.entity.Enemy
+import cmsc434.rpg.runner.R
 import kotlinx.android.synthetic.main.icon_map_item.view.*
 
 class MapItemView (context: Context, var monster: Boolean, var name: String, val _id: Int): ConstraintLayout(context) {

@@ -8,6 +8,7 @@ class PrefHelper private constructor(context: Context) {
     private var sharedPref: SharedPreferences
 
     companion object {
+
         private var instance: PrefHelper? = null
         @Synchronized
         fun getInstance(context: Context) = instance
