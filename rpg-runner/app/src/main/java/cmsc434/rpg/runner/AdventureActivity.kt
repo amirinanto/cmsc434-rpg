@@ -32,19 +32,23 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
 
-    private var zoomLevel: Float = 18.0f
     private var lastId: Int = 0
     private var numOfMonster = 3
     private var numOfChest = 1
 
-    private val pref: PrefHelper = applicationContext.pref
-    private val player: PlayerHelper = applicationContext.player
-    private var fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+    private lateinit var pref: PrefHelper
+    private lateinit var player: PlayerHelper
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adventure)
+
+        pref = applicationContext.pref
+        player = applicationContext.player
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         fab_menu.setOnClickListener {
 
@@ -68,10 +72,6 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
             requestLocationPermission()
         }
 
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     private fun requestLocationPermission() {
@@ -133,7 +133,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
 
             val curLatLng = LatLng(location.latitude, location.longitude)
 
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(curLatLng, zoomLevel))
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(curLatLng, ZOOM_LEVEL))
 
             for (x in 1..numOfMonster)
                 addMapItem(true)
@@ -238,6 +238,8 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback {
         const val TAG = "RPG-RUNNER"
 
         const val MONSTER_ID_KEY = "monster_id"
+
+        const val ZOOM_LEVEL: Float = 18.0f
     }
 
 }

@@ -76,5 +76,8 @@
         "This is the Help Page\n"
         "Help Yourself :)\n"
     </string>
+    <string name="mission_req">Mission Requirements</string>
+    <string name="finish">Finish</string>
+    <string name="current_run">Current Run</string>
 
 </resources>

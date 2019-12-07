@@ -48,7 +48,7 @@
         app:maxImageSize="24dp"
         app:tint="@android:color/white" />
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/info_card"
         android:layout_width="220dp"
         android:layout_height="64dp"
@@ -237,7 +237,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/items_layout"

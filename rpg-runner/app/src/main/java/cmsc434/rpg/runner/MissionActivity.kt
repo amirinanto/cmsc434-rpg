@@ -1,5 +1,6 @@
 package cmsc434.rpg.runner
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -33,7 +34,7 @@ class MissionActivity : AppCompatActivity() {
 
         missionList = ArrayList()
         missionAdapter = MissionAdapter(missionList) {
-
+            startActivityForResult(Intent(this, TrackingActivity::class.java), TRACKING_REQUEST_CODE)
         }
 
         mission_list.layoutManager = LinearLayoutManager(applicationContext)
@@ -100,6 +101,10 @@ class MissionActivity : AppCompatActivity() {
         }
 
         missionAdapter.notifyDataSetChanged()
+    }
+
+    companion object {
+        const val TRACKING_REQUEST_CODE = 0
     }
 
 }

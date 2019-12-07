@@ -43,6 +43,8 @@ class PrefHelper private constructor(context: Context) {
         }
         return value
     }
+
+    fun isSettingExist(key: String): Boolean = sharedPref.contains(key)
 }
 
 val Context.pref: PrefHelper

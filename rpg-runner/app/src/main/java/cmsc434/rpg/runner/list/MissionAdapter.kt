@@ -31,9 +31,7 @@ class MissionAdapter(val missionList: List<Mission>, val onClick: (Mission) -> U
                         alpha = .5f
 
                     } else {
-                        setOnClickListener {
-                            onClick(mission)
-                        }
+                        setOnClickListener { onClick(mission) }
                     }
                 }
             }
