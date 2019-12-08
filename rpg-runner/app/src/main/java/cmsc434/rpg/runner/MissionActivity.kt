@@ -140,12 +140,13 @@ class MissionActivity : AppCompatActivity() {
                 val mission = missionList[missionNum]
                 val miles = data.getFloatExtra(RUN_MILES, 0f)
                 val extraReward = data.getIntExtra(RUN_REWARD, 0)
+                val isStoryMission = data.getBooleanExtra(MISSION_STORY, false)
 
-                if (miles > mission.reqInt) {
+                if (miles > mission.reqInt && isStoryMission) {
                     pref.putSettingPlease(STORY_DONE[missionNum], true)
                     mission.isDone = true
                     missionAdapter.notifyDataSetChanged()
-
+                    Toast.makeText(this, "Mission Complete! You run ${miles} Miles!", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "Mission Requirement is unfulfilled!", Toast.LENGTH_SHORT).show()
                     Toast.makeText(this, "Don't worry you are still rewarded :)", Toast.LENGTH_SHORT).show()
@@ -169,6 +170,7 @@ class MissionActivity : AppCompatActivity() {
         const val MISSION_REQ = "mission_key"
         const val MISSION_REWARD = "mission_reward"
         const val MISSION_DONE = "mission_done"
+        const val MISSION_STORY = "mission_story"
         const val RUN_MILES = "run_miles"
         const val RUN_REWARD = "run_reward"
 

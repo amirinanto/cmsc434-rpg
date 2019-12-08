@@ -9,9 +9,11 @@ import android.graphics.Color
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import cmsc434.rpg.runner.helper.*
+import cmsc434.rpg.runner.list.Mission
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -42,6 +44,7 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
     private var missionReward = 0
     private var missionDone = false
     private var missionNum = 0
+    private var isStoryMission = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +69,7 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
             missionReq = getIntExtra(MissionActivity.MISSION_REQ, 1).toFloat()
             missionReward = getIntExtra(MissionActivity.MISSION_REWARD, 0)
             missionNum = getIntExtra(MissionActivity.MISSION_NUM, 0)
+            isStoryMission = getBooleanExtra(MissionActivity.MISSION_STORY, false)
         }
 
         mission_info.text = "${twoDigitsPlease(missionReq)} Mile${if (missionReq == 1f) "" else "s"}"
@@ -125,6 +129,7 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
             .putExtra(MissionActivity.MISSION_NUM, missionNum)
             .putExtra(MissionActivity.RUN_MILES, miles)
             .putExtra(MissionActivity.RUN_REWARD, missionReward)
+            .putExtra(MissionActivity.MISSION_STORY, isStoryMission)
         if (miles < .1)
             setResult(Activity.RESULT_CANCELED)
         else

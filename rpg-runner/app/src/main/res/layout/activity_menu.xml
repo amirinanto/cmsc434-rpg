@@ -34,13 +34,14 @@
         android:id="@+id/animation_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         app:cardBackgroundColor="@android:color/white"
         app:cardElevation="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:contentPaddingTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleCard">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/animation_constraint"
@@ -146,61 +147,58 @@
         android:layout_marginBottom="@dimen/big_gap"
         app:layout_constraintBottom_toTopOf="@+id/adventure_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/divider">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ProgressBar
             android:id="@+id/exp_bar2"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="72dp"
             android:layout_height="wrap_content"
-            android:max="10"
+            android:max="100"
             android:min="0"
-            android:progress="1"
+            android:progress="99"
             android:progressTint="@color/colorExperience"
             android:scaleY="3"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/divider2"
-            app:layout_constraintStart_toEndOf="@+id/cardView" />
+            app:layout_constraintEnd_toEndOf="@+id/divider"
+            app:layout_constraintStart_toStartOf="@+id/divider" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:text="@string/totalrun"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/miles_info"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:text="@string/miles"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/miles_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/default_mile"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/divider2"
+            app:layout_constraintEnd_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <androidx.cardview.widget.CardView
@@ -243,10 +241,10 @@
 
         <View
             android:id="@+id/divider"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="@id/divider2"
             app:layout_constraintStart_toEndOf="@+id/cardView"
@@ -273,11 +271,11 @@
             android:layout_width="1dp"
             android:layout_height="70dp"
             android:layout_marginTop="1dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="1dp"
             android:background="@android:color/darker_gray"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView3"
+            app:layout_constraintEnd_toStartOf="@+id/miles_info"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -299,13 +297,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed-light"
+            android:padding="@dimen/small_gap"
             android:text="@string/default_level"
             android:textColor="@android:color/black"
             android:textSize="12sp"
             android:textStyle="italic"
             app:layout_constraintBottom_toTopOf="@+id/exp_bar2"
-            app:layout_constraintEnd_toStartOf="@+id/divider2"
-            app:layout_constraintStart_toEndOf="@+id/cardView" />
+            app:layout_constraintEnd_toEndOf="@+id/exp_bar2"
+            app:layout_constraintStart_toStartOf="@+id/exp_bar2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

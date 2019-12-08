@@ -43,6 +43,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
     private lateinit var fusedLocationClient : FusedLocationProviderClient
     private lateinit var locationCallback : LocationCallback
     private lateinit var locationRequest : LocationRequest
+    private lateinit var lastLocation : Location
     private var locationUpdateState = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -172,6 +173,15 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
             val userLatLng = LatLng(location.latitude, location.longitude)
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, ZOOM_LEVEL))
 
+            // initialize lastLocation
+            if (!::lastLocation.isInitialized)
+                lastLocation = location
+            // if move far enough, remove all map item
+            else if (location.distanceTo(lastLocation) > 50f) {
+                lastLocation = location
+                items_layout.removeAllViews()
+            }
+
             GlobalScope.launch(Dispatchers.Main) {
                 delay(2000)
 
@@ -196,6 +206,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
         val x = r.nextInt(0,w - 200).toFloat()
         val y = r.nextInt(0,h/2).toFloat()
 
+        // TODO make item as Marker
         // TODO item intersection check
 
         val name = if (monster) "Slime Monster" else "Chest"
@@ -240,12 +251,17 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
     }
 
     private fun updatePlayer() {
-        val p = player.getPlayer()
-        level_text.text = "Level: ${p.level}"
-        player_name.text = "${p.name}"
-        hp_info.text = "${p.hp}/${p.hp}"
-        mp_info.text = "${p.mp}/${p.mp}"
-        exp_info.text = "${p.exp}/${p.level*10}"
+        with (player.getPlayer()) {
+            level_text.text = "Level: ${level}"
+            player_name.text = "${name}"
+            hp_info.text = "${hp}/${hp}"
+            mp_info.text = "${mp}/${mp}"
+
+            val nextLevel = level * 10
+            val expProgress = exp / nextLevel * 100
+            exp_info.text = "${exp}/${nextLevel}"
+            exp_bar.progress = expProgress
+        }
     }
 
     private fun removeMapItem(_id: Int) {

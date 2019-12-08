@@ -20,19 +20,6 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/menu_icon"
-        app:tint="@android:color/white" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -111,8 +98,8 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
-                android:max="10"
-                android:progress="1"
+                android:max="100"
+                android:progress="99"
                 android:progressTint="@color/colorExperience"
                 android:scaleY="3"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -258,6 +245,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="16dp"
         android:animateLayoutChanges="true"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/fab_menu"
         app:layout_constraintEnd_toEndOf="@+id/fab_menu">
 
@@ -328,6 +316,19 @@
             app:layout_constraintEnd_toEndOf="@id/option_submenu"
             app:layout_constraintTop_toTopOf="@id/option_submenu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/menu_icon"
+        app:tint="@android:color/white" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

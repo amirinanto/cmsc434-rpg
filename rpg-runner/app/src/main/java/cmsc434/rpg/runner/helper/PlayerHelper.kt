@@ -48,7 +48,7 @@ class PlayerHelper private constructor(context: Context) {
         val nextLv = exp + (10 - exp % 10)
         exp += addExp
         if (exp >= nextLv)
-            levelUp = 1
+            levelUp = addExp / 10
 
         with (sharedPref!!.edit()) {
             putInt(PLAYER_EXP, exp)
@@ -99,11 +99,14 @@ class PlayerHelper private constructor(context: Context) {
     fun getPlayer(): Player {
         var p = Player("ERROR")
         if (sharedPref != null) {
-            p = Player(sharedPref.getString(PLAYER_NAME, "ERROR")!!,
-                level = sharedPref.getInt(PLAYER_LEVEL, 1),
-                exp = sharedPref.getInt(PLAYER_EXP, 1),
-                hp = sharedPref.getInt(PLAYER_HP, 1),
-                mp = sharedPref.getInt(PLAYER_MP, 1))
+            with (sharedPref) {
+                p = Player(getString(PLAYER_NAME, "ERROR")!!,
+                    level = getInt(PLAYER_LEVEL, 1),
+                    exp = getInt(PLAYER_EXP, 1),
+                    hp = getInt(PLAYER_HP, 1),
+                    mp = getInt(PLAYER_MP, 1),
+                    miles = getFloat(PLAYER_MILES, 0f))
+            }
         }
         return p
     }

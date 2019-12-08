@@ -6,9 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -18,6 +16,8 @@ class BattleActivity : AppCompatActivity() {
 
     var exit = false
     var actionBeingPerformed = false
+    var skillMode = false
+    var itemMode = false
     var returnIntent = Intent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,15 +31,70 @@ class BattleActivity : AppCompatActivity() {
 
         enemy_name.text = "Slime Monster"
 
-        fab_close.setOnClickListener { flee() }
+        fab_close.setOnClickListener {
+            if (skillMode) {
+                skillMode = false
+                switchCards()
+                return@setOnClickListener
+            } else if (itemMode) {
+                itemMode = false
+                switchCards()
+                return@setOnClickListener
+            }
+            flee()
+        }
 
         attack_button.setOnClickListener { attack() }
 
         skill_button.setOnClickListener { skill() }
 
+        skill1_button.setOnClickListener {
+            animateBattleStatus("Player use Fire\nMonster loses 10 HP\nMonster defeated")
+            damage_layout.setBackgroundColor(Color.RED)
+            damageEnemy()
+        }
+
+        skill2_button.setOnClickListener {
+            animateBattleStatus("Player use Ice\nMonster loses 10 HP\nMonster defeated")
+            damage_layout.setBackgroundColor(Color.CYAN)
+            damageEnemy()
+        }
+
         defend_button.setOnClickListener { defend() }
 
         item_button.setOnClickListener { item() }
+
+        item1_button.setOnClickListener {
+            animateBattleStatus("Player use Lucky Charm\nNothing happened..\nMonster defeated")
+        }
+
+        item2_button.setOnClickListener {
+            animateBattleStatus("Player throw Torch\nMonster loses 10 HP\nMonster defeated")
+            damage_layout.setBackgroundColor(Color.RED)
+            damageEnemy()
+        }
+    }
+
+    private fun switchCards() {
+        val hide = View.GONE
+        val show = View.VISIBLE
+
+        if (skillMode) {
+            item_action_card.visibility = hide
+            primary_action_card.visibility = hide
+            skill_action_card.visibility = show
+
+        } else if (itemMode) {
+            item_action_card.visibility = show
+            primary_action_card.visibility = hide
+            skill_action_card.visibility = hide
+
+        } else {
+            item_action_card.visibility = hide
+            primary_action_card.visibility = show
+            skill_action_card.visibility = hide
+
+        }
     }
 
     private fun flee() {
@@ -48,13 +103,30 @@ class BattleActivity : AppCompatActivity() {
     }
 
     private fun skill() {
-
+        skillMode = true
+        switchCards()
     }
 
     private fun attack() {
         animateBattleStatus("Player use Attack\nMonster loses 10 HP\nMonster defeated")
+        damage_layout.setBackgroundColor(Color.GRAY)
+        damageEnemy()
+    }
+
+    private fun damageEnemy() {
         damage_text.visibility = View.VISIBLE
         enemy_health.text = "0/10"
+
+        damage_layout.animate()
+            .alpha(0.5f)
+            .setDuration(1000)
+            .withEndAction {
+                damage_layout.animate()
+                    .alpha(0f)
+                    .setDuration(1000)
+                    .start()
+            }.start()
+
         damage_text.animate()
             .scaleX(2f)
             .scaleY(2f)
@@ -74,7 +146,7 @@ class BattleActivity : AppCompatActivity() {
     private fun enemyDefeated() {
         AlertDialog.Builder(this)
             .setTitle("Victory!")
-            .setMessage("Rewards:\n\n100 exp\n100 gold")
+            .setMessage("Rewards:\n\n1 exp\n1 gold")
             .setPositiveButton("Continue") {
                 _,_ ->
                 setResult(Activity.RESULT_OK, returnIntent)
@@ -84,7 +156,8 @@ class BattleActivity : AppCompatActivity() {
     }
 
     private fun item() {
-
+        itemMode = true
+        switchCards()
     }
 
     private fun defend() {
@@ -110,8 +183,7 @@ class BattleActivity : AppCompatActivity() {
         item_button.setBackgroundColor(color)
         item_button.isClickable = isEnabled
 
-        fab_close.setBackgroundColor(color)
-        fab_close.isClickable = isEnabled
+        fab_close.isVisible = isEnabled
 
         actionBeingPerformed = true
     }

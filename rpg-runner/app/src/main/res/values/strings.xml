@@ -79,5 +79,11 @@
     <string name="mission_req">Mission Requirements</string>
     <string name="finish">Finish</string>
     <string name="current_run">Current Run</string>
+    <string name="lucky_charm">Lucky Charm</string>
+    <string name="torch">Torch</string>
+    <string name="choose_item">Choose your item</string>
+    <string name="choose_skill">Choose your skill</string>
+    <string name="fire">Fire</string>
+    <string name="ice">Ice</string>
 
 </resources>
