@@ -1,13 +1,14 @@
 package cmsc434.rpg.runner
 
 import android.app.Activity
+import androidx.appcompat.app.AlertDialog
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import cmsc434.rpg.runner.helper.*
@@ -18,8 +19,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.android.synthetic.main.activity_tracking.*
+import java.lang.Float.parseFloat
 
 class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -34,6 +36,12 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var lastLocation : Location
     private var locationUpdateState = false
     private var trackedLocations = ArrayList<Location>()
+
+    private var runDistance = 0f
+    private var missionReq = 1f
+    private var missionReward = 0
+    private var missionDone = false
+    private var missionNum = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,16 +62,31 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
+        with (intent) {
+            missionReq = getIntExtra(MissionActivity.MISSION_REQ, 1).toFloat()
+            missionReward = getIntExtra(MissionActivity.MISSION_REWARD, 0)
+            missionNum = getIntExtra(MissionActivity.MISSION_NUM, 0)
+        }
+
+        mission_info.text = "${twoDigitsPlease(missionReq)} Mile${if (missionReq == 1f) "" else "s"}"
+        reward_info.text = "$missionReward Gold, $missionReward Exp"
+
         createLocationRequest()
 
         (supportFragmentManager.findFragmentById(R.id.map_view_track) as SupportMapFragment)
             .getMapAsync(this)
 
         finish_button.setOnClickListener {
-            if (lastLocation != null)
-                Toast.makeText(applicationContext,
-                    "distance: ${lastLocation.distanceTo(trackedLocations[0])}, accuracy: ${lastLocation.accuracy}", Toast.LENGTH_SHORT).show()
+            if (missionDone)
+                finishRun()
+            else
+                onBackPressed()
         }
+
+        fab_back.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 
     override fun onResume() {
@@ -77,6 +100,40 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onPause()
 
         fusedLocationClient.removeLocationUpdates(locationCallback)
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setTitle("Exit")
+            .setMessage("Are you sure you want to exit?\n\n" +
+                    "Mission is ${if (missionDone) "Completed" else "Not Completed"}.")
+            .setPositiveButton("Yes") {
+                    _,_ ->
+                finishRun()
+            }
+            .setNegativeButton("No") {
+                    _,_ ->
+                Toast.makeText(this,
+                    "Keep going! You got this!", Toast.LENGTH_SHORT)
+                    .show()
+            }.show()
+    }
+
+    private fun finishRun() {
+        val miles = parseFloat(miles_info.text.toString())
+        var result = Intent().putExtra(MissionActivity.MISSION_DONE, missionDone)
+            .putExtra(MissionActivity.MISSION_NUM, missionNum)
+            .putExtra(MissionActivity.RUN_MILES, miles)
+            .putExtra(MissionActivity.RUN_REWARD, missionReward)
+        if (miles < .1)
+            setResult(Activity.RESULT_CANCELED)
+        else
+            setResult(Activity.RESULT_OK, result)
+        finish()
+    }
+
+    private fun twoDigitsPlease(number: Float): Float {
+        return String.format("%.2f", number).toFloat()
     }
 
     /* Map Related Functions */
@@ -130,7 +187,9 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // first location
         if (!::lastLocation.isInitialized) {
-            addLocation(newLocation)
+            lastLocation = newLocation
+            trackedLocations.add(lastLocation)
+            moveMap()
             return
         }
 
@@ -149,12 +208,41 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun addLocation(location: Location){
-        lastLocation = location
-        trackedLocations.add(lastLocation)
-
-        // move camera to last location
         val lastLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLatLng, AdventureActivity.ZOOM_LEVEL))
+        val newLatLng = LatLng(location.latitude, location.longitude)
+
+        if (lastLatLng != newLatLng) {
+
+            // make lines
+            map.addPolyline(
+                PolylineOptions()
+                    .add(lastLatLng, newLatLng)
+                    .width(5f)
+                    .color(Color.CYAN))
+
+            // update distance
+            val distance = lastLocation.distanceTo(location) * 0.000621371192f // from meter to miles
+            updateDistance(distance)
+
+            lastLocation = location
+            trackedLocations.add(lastLocation)
+
+            // move camera to last location
+            moveMap()
+        }
+    }
+
+    private fun moveMap() {
+        val latLng = LatLng(lastLocation.latitude, lastLocation.longitude)
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, AdventureActivity.ZOOM_LEVEL))
+    }
+
+    private fun updateDistance(distance: Float) {
+        runDistance += distance
+        miles_info.text = twoDigitsPlease(runDistance).toString()
+
+        val progress = (runDistance / missionReq).toInt()
+        progressBar.progress = progress
     }
 
     private fun createLocationRequest() {

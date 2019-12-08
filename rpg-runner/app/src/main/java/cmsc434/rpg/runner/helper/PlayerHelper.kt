@@ -15,9 +15,8 @@ class PlayerHelper private constructor(context: Context) {
         const val PLAYER_LEVEL = "level"
         const val PLAYER_EXP = "exp"
         const val PLAYER_HP = "hp"
-        const val PLAYER_MAX_HP = "max_hp"
         const val PLAYER_MP = "mp"
-        const val PLAYER_MAX_MP = "max_mp"
+        const val PLAYER_MILES = "miles"
 
         private var instance: PlayerHelper? = null
         @Synchronized
@@ -36,6 +35,7 @@ class PlayerHelper private constructor(context: Context) {
             putInt(PLAYER_EXP, 0)
             putInt(PLAYER_HP, 10)
             putInt(PLAYER_MP, 5)
+            putFloat(PLAYER_MILES, 0f)
             commit()
         }
     }
@@ -74,6 +74,21 @@ class PlayerHelper private constructor(context: Context) {
         with (sharedPref!!.edit()) {
             putInt(PLAYER_MP, mp)
             commit()
+        }
+    }
+
+    fun addMiles(miles: Float) {
+        if (miles >= 0.1) {
+            var playerMiles = sharedPref.getFloat(PLAYER_MILES, 0f)
+
+            with(sharedPref.edit()) {
+                playerMiles += miles
+                putFloat(PLAYER_MILES, playerMiles)
+                commit()
+            }
+
+            var reward = (miles * 10).toInt()
+            addExp(reward)
         }
     }
 

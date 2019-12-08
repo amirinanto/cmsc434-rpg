@@ -38,7 +38,7 @@ class PrefHelper private constructor(context: Context) {
                 Int -> getInt(key, default as Int)
                 String -> getString(key, default as String) ?: "NULL"
                 Boolean -> getBoolean(key, default as Boolean)
-                else -> throw Exception()
+                else -> default
             }
         }
         return value
