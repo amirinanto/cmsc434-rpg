@@ -199,7 +199,7 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         // check if new location is good enough
-        if (lastLocation.distanceTo(newLocation) >= 10f) {
+        if (lastLocation.distanceTo(newLocation) > 9f) {
             addLocation(newLocation)
             Toast.makeText(
                 applicationContext,

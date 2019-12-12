@@ -49,7 +49,8 @@ class MissionActivity : AppCompatActivity() {
 
             if (id > 0) {
                 val isPrefStoryDone = pref.getSettingPlease(STORY_DONE[id - 1], false) as Boolean
-                if (isPrefStoryDone) {
+                Toast.makeText(this, "prev story: $isPrefStoryDone", Toast.LENGTH_SHORT).show()
+                if (!isPrefStoryDone) {
                     Toast.makeText(this, "Please complete previous mission!", Toast.LENGTH_SHORT).show()
                     return@MissionAdapter
                 }
@@ -91,14 +92,14 @@ class MissionActivity : AppCompatActivity() {
         missionList.clear()
 
         for (i in 1..10) {
-            val reward = i*100
+            val reward = i*10
             missionList.add(
                 Mission(i,
-                    "RUN ${i} Miles",
+                    "Run $i Miles",
                     "Enjoy your run.",
-                    "${i} Miles",
+                    "$i Miles",
                     i*1,
-                    "${reward} exp, ${reward} gold",
+                    "$reward exp, $reward gold",
                     reward))
         }
 
@@ -125,7 +126,7 @@ class MissionActivity : AppCompatActivity() {
                 missionReq[i],
                 missionNum,
                 missionReward[i],
-                (missionNum)*200,
+                (missionNum)*20,
                 isDone))
         }
 

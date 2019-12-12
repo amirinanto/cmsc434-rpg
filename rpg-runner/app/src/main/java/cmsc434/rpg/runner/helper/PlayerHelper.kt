@@ -57,7 +57,7 @@ class PlayerHelper private constructor(context: Context) {
                 level += levelUp
                 putInt(PLAYER_LEVEL, level)
                 putInt(PLAYER_HP, level * 10)
-                putInt(PLAYER_MP, level * 10)
+                putInt(PLAYER_MP, level * 5)
             }
             commit()
         }

@@ -80,13 +80,13 @@
 
             <TextView
                 android:id="@+id/exp_info"
-                android:layout_width="72dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:elevation="@dimen/text_elevation"
                 android:fontFamily="serif-monospace"
                 android:text="@string/default_exp"
                 android:textAlignment="center"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/holo_orange_dark"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/exp_bar"
                 app:layout_constraintLeft_toLeftOf="@id/exp_bar"
@@ -96,14 +96,18 @@
             <ProgressBar
                 android:id="@+id/exp_bar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="72dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
                 android:max="100"
                 android:progress="99"
+                android:progressBackgroundTint="@color/colorExperience"
                 android:progressTint="@color/colorExperience"
-                android:scaleY="3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:scaleY="4"
+                app:layout_constraintEnd_toStartOf="@+id/cardView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/level_text" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
@@ -172,15 +176,17 @@
             <ProgressBar
                 android:id="@+id/hp_bar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="72dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
                 android:max="10"
                 android:progress="10"
                 android:progressTint="@color/colorHealth"
                 android:scaleY="4"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toTopOf="@+id/mp_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardView" />
 
             <TextView
                 android:id="@+id/mp_text"
@@ -210,15 +216,16 @@
             <ProgressBar
                 android:id="@+id/mp_bar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="72dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
                 android:max="5"
                 android:progress="5"
                 android:progressTint="@color/colorMagic"
                 android:scaleY="4"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toTopOf="@+id/exp_info" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

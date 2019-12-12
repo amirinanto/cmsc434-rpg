@@ -13,8 +13,6 @@ import java.lang.Exception
 
 class MenuActivity : AppCompatActivity() {
 
-    private var right = false
-
     private lateinit var player: PlayerHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +72,7 @@ class MenuActivity : AppCompatActivity() {
         with (player.getPlayer()) {
             player_name.text = name
             level_info.text = "Level ${level} "
-            exp_bar2.progress = exp / level * 1000
+            exp_bar2.progress = exp * 100 / level
             exp_info.text = "${exp}/${level*10}"
             miles_info.text = String.format("%.2f", miles)
         }

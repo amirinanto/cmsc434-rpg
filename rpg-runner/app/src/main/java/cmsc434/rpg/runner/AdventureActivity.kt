@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.transition.TransitionManager
 import android.util.Log
@@ -35,10 +36,12 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
 
     private lateinit var map: GoogleMap
 
-    private var lastId: Int = 0
+    private var lastId = 0
+    private var length = 0
 
     private lateinit var pref: PrefHelper
     private lateinit var player: PlayerHelper
+    private lateinit var musicPlayer: MediaPlayer
 
     private lateinit var fusedLocationClient : FusedLocationProviderClient
     private lateinit var locationCallback : LocationCallback
@@ -53,6 +56,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
 
         pref = applicationContext.pref
         player = applicationContext.player
+        musicPlayer = applicationContext.music
 
         fusedLocationClient = FusedLocationProviderClient(this)
         locationCallback = object: LocationCallback() {
@@ -96,7 +100,25 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
             // Permission is not granted
             requestLocationPermission()
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        if (length != 0)
+            musicPlayer.seekTo(length)
+        musicPlayer.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        musicPlayer.pause()
+        length = musicPlayer.currentPosition
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        musicPlayer.stop()
+        musicPlayer.release()
     }
 
     private fun openOptionMenu() {
@@ -247,19 +269,20 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
                     _,_ ->
                 removeMapItem(_id)
             }
+            .setCancelable(false)
             .show()
     }
 
     private fun updatePlayer() {
         with (player.getPlayer()) {
-            level_text.text = "Level: ${level}"
-            player_name.text = "${name}"
-            hp_info.text = "${hp}/${hp}"
-            mp_info.text = "${mp}/${mp}"
+            level_text.text = "Level: $level"
+            player_name.text = name
+            hp_info.text = hp.toString()
+            mp_info.text = mp.toString()
 
             val nextLevel = level * 10
-            val expProgress = exp / nextLevel * 100
-            exp_info.text = "${exp}/${nextLevel}"
+            val expProgress = exp * 100 / nextLevel
+            exp_info.text = "$exp/$nextLevel"
             exp_bar.progress = expProgress
         }
     }
@@ -277,6 +300,7 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
+            // finish battle
             BATTLE_REQUEST_CODE -> {
                 if (resultCode == Activity.RESULT_OK) {
                     val _id = data?.getIntExtra(MONSTER_ID_KEY, -1)
@@ -285,9 +309,11 @@ class AdventureActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnM
                     }
                     player.addExp(1)
                     updatePlayer()
-                } else {
-
                 }
+            }
+            LOCATION_PERMISSION_REQUEST_CODE -> {
+                setupMap()
+                setupLocation()
             }
         }
     }

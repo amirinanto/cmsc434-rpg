@@ -1,6 +1,7 @@
 package cmsc434.rpg.runner.helper
 
 import android.content.Context
+import android.media.MediaPlayer
 import cmsc434.rpg.runner.R
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -25,3 +26,6 @@ fun Context.getMapStyle(pref: PrefHelper): MapStyleOptions {
 
     return MapStyleOptions.loadRawResourceStyle(applicationContext,  mapStyle)
 }
+
+val Context.music: MediaPlayer
+    get() = MediaPlayer.create(this.applicationContext, R.raw.bg_music)

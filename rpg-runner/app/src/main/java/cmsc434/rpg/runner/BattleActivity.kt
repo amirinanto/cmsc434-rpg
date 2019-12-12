@@ -151,7 +151,9 @@ class BattleActivity : AppCompatActivity() {
                 _,_ ->
                 setResult(Activity.RESULT_OK, returnIntent)
                 finish()
-            }.show()
+            }
+            .setCancelable(false)
+            .show()
 
     }
 

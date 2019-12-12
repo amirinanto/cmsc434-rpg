@@ -66,9 +66,9 @@
     </string-array>
 
     <string-array name="story_missions_rewards">
-        <item><b>200</b> exp, <b>200</b> gold</item>
-        <item><b>500</b> exp, <b>500</b> gold</item>
-        <item><b>1000</b> exp, <b>1000</b> gold</item>
+        <item><b>20</b> exp, <b>20</b> gold</item>
+        <item><b>50</b> exp, <b>50</b> gold</item>
+        <item><b>100</b> exp, <b>100</b> gold</item>
     </string-array>
 
     <string name="music_option_switch">Music</string>
