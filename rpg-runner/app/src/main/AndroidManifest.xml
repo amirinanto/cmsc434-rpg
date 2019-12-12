@@ -16,6 +16,9 @@
         <activity
             android:name=".MissionActivity"
             android:theme="@style/AppTheme.Launcher" />
+        <activity
+            android:name=".CharacterActivity"
+            android:theme="@style/AppTheme.Launcher" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

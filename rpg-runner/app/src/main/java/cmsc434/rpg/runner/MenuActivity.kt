@@ -37,11 +37,13 @@ class MenuActivity : AppCompatActivity() {
         }
 
         character_button.setOnClickListener{
-            try {
-                startActivity(Intent(this, OptionActivity::class.java))
-            } catch (e: Exception) {
-                Toast.makeText(this, "This function is not enabled yet :)", Toast.LENGTH_SHORT).show()
-            }
+            var intent = Intent(this, CharacterActivity::class.java)
+            startActivity(intent)
+            //try {
+            //    startActivity(Intent(this, OptionActivity::class.java))
+            //} catch (e: Exception) {
+            //    Toast.makeText(this, "This function is not enabled yet :)", Toast.LENGTH_SHORT).show()
+            //}
         }
 
         option_button.setOnClickListener {
