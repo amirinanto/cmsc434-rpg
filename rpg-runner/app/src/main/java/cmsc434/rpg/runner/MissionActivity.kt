@@ -58,10 +58,11 @@ class MissionActivity : AppCompatActivity() {
             }
 
             startActivityForResult(Intent(this, TrackingActivity::class.java)
-                    .putExtra(MISSION_NUM, it.id)
-                    .putExtra(MISSION_REQ, it.reqInt)
-                    .putExtra(MISSION_REWARD, it.rewardInt),
-                    TRACKING_REQUEST_CODE)
+                .putExtra(MISSION_NUM, it.id)
+                .putExtra(MISSION_REQ, it.reqInt)
+                .putExtra(MISSION_REWARD, it.rewardInt)
+                .putExtra(MISSION_STORY, it.isStory),
+                TRACKING_REQUEST_CODE)
         }
 
         mission_list.layoutManager = LinearLayoutManager(applicationContext)
@@ -127,7 +128,8 @@ class MissionActivity : AppCompatActivity() {
                 missionNum,
                 missionReward[i],
                 (missionNum)*20,
-                isDone))
+                isDone,
+                true))
         }
 
         missionAdapter.notifyDataSetChanged()
@@ -143,14 +145,16 @@ class MissionActivity : AppCompatActivity() {
                 val extraReward = data.getIntExtra(RUN_REWARD, 0)
                 val isStoryMission = data.getBooleanExtra(MISSION_STORY, false)
 
+
+                //Toast.makeText(this, "miles: $miles req: $mission.reqInt isStoryMission", Toast.LENGTH_SHORT).show()
+
                 if (miles > mission.reqInt && isStoryMission) {
                     pref.putSettingPlease(STORY_DONE[missionNum], true)
                     mission.isDone = true
                     missionAdapter.notifyDataSetChanged()
-                    Toast.makeText(this, "Mission Complete! You run ${miles} Miles!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Mission Complete! You run ${miles} Miles!", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(this, "Mission Requirement is unfulfilled!", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(this, "Don't worry you are still rewarded :)", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Mission Requirement is unfulfilled!\nDon't worry you are still rewarded :)", Toast.LENGTH_LONG).show()
                 }
 
                 player.addMiles(miles)

@@ -23,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.android.synthetic.main.activity_tracking.*
+import kotlinx.android.synthetic.main.item_mission.*
 import java.lang.Float.parseFloat
 
 class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -107,6 +108,10 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onBackPressed() {
+        /* cheating :P
+        updateDistance(1.0f)
+        */
+
         AlertDialog.Builder(this)
             .setTitle("Exit")
             .setMessage("Are you sure you want to exit?\n\n" +
@@ -130,7 +135,7 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
             .putExtra(MissionActivity.RUN_MILES, miles)
             .putExtra(MissionActivity.RUN_REWARD, missionReward)
             .putExtra(MissionActivity.MISSION_STORY, isStoryMission)
-        if (miles < .1)
+        if (miles < 0.1f)
             setResult(Activity.RESULT_CANCELED)
         else
             setResult(Activity.RESULT_OK, result)
@@ -199,13 +204,13 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         // check if new location is good enough
-        if (lastLocation.distanceTo(newLocation) > 9f) {
+        if (lastLocation.distanceTo(newLocation) > 1f) {
             addLocation(newLocation)
-            Toast.makeText(
+            /*Toast.makeText(
                 applicationContext,
                 "new location, lat: ${lastLocation.latitude} long: ${lastLocation.longitude}, all locations: ${trackedLocations}",
                 Toast.LENGTH_SHORT
-            ).show()
+            ).show()*/
 
         }
 
@@ -246,8 +251,17 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
         runDistance += distance
         miles_info.text = twoDigitsPlease(runDistance).toString()
 
-        val progress = (runDistance / missionReq).toInt()
+        val progress = (runDistance * 100 / missionReq).toInt()
         progressBar.progress = progress
+
+        if (runDistance >= missionReq) {
+            missionDone = true
+            val extra = ((runDistance - missionReq) / .1).toInt()
+            if (extra > 0) {
+                missionReward += extra
+                mission_reward.text = missionReward.toString()
+            }
+        }
     }
 
     private fun createLocationRequest() {
@@ -291,7 +305,6 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     companion object {
-        const val TAG = "RPG_Tracking"
 
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
         private const val REQUEST_CHECK_SETTINGS = 2

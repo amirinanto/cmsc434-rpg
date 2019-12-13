@@ -22,9 +22,9 @@ class PrefHelper private constructor(context: Context) {
     fun putSettingPlease(key: String, value: Any) {
         with (sharedPref.edit()) {
             when (value) {
-                Int -> putInt(key, value as Int)
-                String -> putString(key, value as String)
-                Boolean -> putBoolean(key, value as Boolean)
+                is Int -> putInt(key, value)
+                is String -> putString(key, value)
+                is Boolean -> putBoolean(key, value as Boolean)
                 else -> throw Exception()
             }
             commit()
@@ -35,9 +35,9 @@ class PrefHelper private constructor(context: Context) {
         var value: Any
         with (sharedPref){
             value = when (default) {
-                Int -> getInt(key, default as Int)
-                String -> getString(key, default as String) ?: "NULL"
-                Boolean -> getBoolean(key, default as Boolean)
+                is Int -> getInt(key, default)
+                is String -> getString(key, default) ?: "NULL"
+                is Boolean -> getBoolean(key, default)
                 else -> default
             }
         }

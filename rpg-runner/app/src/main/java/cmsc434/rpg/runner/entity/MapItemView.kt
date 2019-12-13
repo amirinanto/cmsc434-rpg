@@ -15,7 +15,7 @@ class MapItemView (context: Context, var monster: Boolean, var name: String, val
 
         item_image.setImageResource(imageId)
         if (!monster)
-            item_image.setColorFilter(Color.MAGENTA)
+            item_image.setColorFilter(Color.LTGRAY)
         item_name.text = name
     }
 }

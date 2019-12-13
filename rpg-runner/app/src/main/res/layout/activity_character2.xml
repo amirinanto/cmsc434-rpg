@@ -15,10 +15,10 @@
         android:text="PLAYER_LEVEL is your character level. The higher level you are, the better stats you'll have. You may level up by gaining exp through running, completing tasks or collecting chests. PLAYER_EXP is your experience. Once your experience reaches the value to level up, you'll level up and your experience will be reset. PLAYER_EXP is your health point. To defeat a monster, you need to keep your HP above 0 and get the monster's HP to 0. PLAYER_MP is your magic point. It's used to cast spells. PLAYER_MILES is the total number of miles you have run."
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         />
+
     <Button
         android:id="@+id/button_popup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Close"
-        />
+        android:text="Close" />
 </LinearLayout>
