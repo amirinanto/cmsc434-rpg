@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@android:color/white"
+    android:fillViewport="true"
     tools:context=".BattleActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,30 +19,27 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
             android:elevation="10dp"
-            android:text="- 10"
+            android:fontFamily="cursive"
+            android:text="@string/default_damage"
             android:textColor="@android:color/holo_red_dark"
-            android:textSize="36sp"
+            android:textSize="40sp"
             android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/enemy_card"
             app:layout_constraintStart_toStartOf="@+id/enemy_card"
-            app:layout_constraintTop_toTopOf="@+id/enemy_card" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/damage_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
             android:alpha="0"
             android:background="@color/colorHealth"
             android:elevation="5dp"
-            app:layout_constraintBottom_toBottomOf="@+id/enemy_card"
-            app:layout_constraintEnd_toEndOf="@+id/enemy_card"
-            app:layout_constraintStart_toStartOf="@+id/enemy_card"
-            app:layout_constraintTop_toTopOf="@+id/enemy_card">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

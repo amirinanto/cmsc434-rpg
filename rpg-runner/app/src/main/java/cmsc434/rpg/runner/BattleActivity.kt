@@ -173,17 +173,19 @@ class BattleActivity : AppCompatActivity() {
 
         val color = if (isEnabled) blue else gray
 
-        attack_button.setBackgroundColor(color)
-        attack_button.isClickable = isEnabled
+        val buttons = arrayOf<View>(attack_button,
+            item_button,
+            skill_button,
+            defend_button,
+            item1_button,
+            item2_button,
+            skill1_button,
+            skill2_button)
 
-        skill_button.setBackgroundColor(color)
-        skill_button.isClickable = isEnabled
-
-        defend_button.setBackgroundColor(color)
-        defend_button.isClickable = isEnabled
-
-        item_button.setBackgroundColor(color)
-        item_button.isClickable = isEnabled
+        for (v in buttons) {
+            v.setBackgroundColor(color)
+            v.isClickable = isEnabled
+        }
 
         fab_close.isVisible = isEnabled
 

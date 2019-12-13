@@ -85,5 +85,6 @@
     <string name="choose_skill">Choose your skill</string>
     <string name="fire">Fire</string>
     <string name="ice">Ice</string>
+    <string name="default_damage">-10</string>
 
 </resources>
