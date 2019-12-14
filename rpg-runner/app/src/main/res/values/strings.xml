@@ -86,7 +86,7 @@
     <string name="fire">Fire</string>
     <string name="ice">Ice</string>
     <string name="default_damage">-10</string>
-    <string name="help_text">In this game, you are not only expected to play by doing three tasks\n\n1. Defeat monsters on the map\n2. Complete Running missions\n3. Open in-game rewards</string>
+    <string name="help_text">In this game, you are not only expected to play by defeating monster.\n\nYou are supposed to do these three tasks in the game.\n\n1. Defeat monsters on the map\n2. Complete Running missions\n3. Open in-game rewards</string>
     <string name="enemy">Enemy</string>
     <string name="chest">Chest</string>
 
