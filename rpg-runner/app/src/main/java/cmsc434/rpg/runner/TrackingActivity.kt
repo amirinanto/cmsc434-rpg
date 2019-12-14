@@ -108,9 +108,10 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onBackPressed() {
-        /* cheating :P
-        updateDistance(1.0f)
-        */
+        val fakeLocation = Location(lastLocation)
+        fakeLocation.longitude += .01
+        fakeLocation.latitude += .01
+        updateLocation(fakeLocation)
 
         AlertDialog.Builder(this)
             .setTitle("Exit")
@@ -259,7 +260,7 @@ class TrackingActivity : AppCompatActivity(), OnMapReadyCallback {
             val extra = ((runDistance - missionReq) / .1).toInt()
             if (extra > 0) {
                 missionReward += extra
-                mission_reward.text = missionReward.toString()
+                reward_info.text = "$missionReward exp"
             }
         }
     }

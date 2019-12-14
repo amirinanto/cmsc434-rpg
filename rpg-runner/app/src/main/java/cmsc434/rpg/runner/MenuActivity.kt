@@ -1,10 +1,14 @@
 package cmsc434.rpg.runner
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import cmsc434.rpg.runner.helper.PlayerHelper
 import cmsc434.rpg.runner.helper.player
 
@@ -25,6 +29,16 @@ class MenuActivity : AppCompatActivity() {
         if (!player.isExist())
             player.initPlayer("Ryu")
 
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            AlertDialog.Builder(this)
+                .setTitle("Permission Required")
+                .setMessage("This app needs location permission to run, please allow it :)")
+                .setPositiveButton("Continue"){
+                    _,_ ->
+                    requestPermission()
+                }.show()
+        }
 
         adventure_button.setOnClickListener {
             var intent = Intent(this, AdventureActivity::class.java)
@@ -55,14 +69,16 @@ class MenuActivity : AppCompatActivity() {
         }
 
         help_button.setOnClickListener {
-            try {
                 startActivity(Intent(this, HelpActivity::class.java))
-            } catch (e: Exception) {
-                Toast.makeText(this, "This function is not enabled yet :)", Toast.LENGTH_SHORT).show()
-            }
         }
 
     }
+
+    private fun requestPermission() =
+        ActivityCompat.requestPermissions(this,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            AdventureActivity.LOCATION_PERMISSION_REQUEST_CODE)
+
 
     override fun onResume() {
         super.onResume()
